@@ -1,3 +1,5 @@
 db.sqlite3
 AIMS/__pycache__/
 AIMS/migrations/__pycache__/
+farm/__pycache__/
+farm/migrations/__pycache__/
