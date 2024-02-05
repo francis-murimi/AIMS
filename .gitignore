@@ -7,3 +7,5 @@ crops/__pycache__/
 crops/migrations/__pycache__/
 inputs/__pycache__/
 inputs/migrations/__pycache__/
+production/__pycache__/
+production/migrations/__pycache__/

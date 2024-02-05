@@ -36,4 +36,4 @@ class CropVariety(models.Model):
         verbose_name_plural = 'Crop Varieties'
     def __str__(self):
         return f'{self.name}-{self.crop}'
-    
+
