@@ -5,3 +5,5 @@ farm/__pycache__/
 farm/migrations/__pycache__/
 crops/__pycache__/
 crops/migrations/__pycache__/
+inputs/__pycache__/
+inputs/migrations/__pycache__/
