@@ -9,3 +9,5 @@ inputs/__pycache__/
 inputs/migrations/__pycache__/
 production/__pycache__/
 production/migrations/__pycache__/
+profiles/__pycache__/
+profiles/migrations/__pycache__/

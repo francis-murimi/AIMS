@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'crops',
     'inputs',
     'production',
+    'profiles',
 ]
 
 MIDDLEWARE = [
