@@ -1,0 +1,35 @@
+{% extends 'farm/farm.html' %}
+{% block title %}Farm List{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Farm List</h2>
+    <div class="row">
+        {% for farm in farms %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ farm.code }}</h5>
+                    <p class="card-text"><strong>Location:</strong> {{ farm.location }}</p>
+                    <p class="card-text"><strong>Size (Acres):</strong> {{ farm.size }}</p>
+                    <a href="{% url 'farm:farm_detail' farm_id=farm.id %}" class="btn btn-primary btn-sm">View</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if farms.has_other_pages %}
+        <ul class="pagination">
+            {% if farms.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ farms.previous_page_number }}">Previous</a></li>
+            {% endif %}
+            {% for i in farms.paginator.page_range %}
+                <li class="page-item {% if farms.number == i %}active{% endif %}"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endfor %}
+            {% if farms.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ farms.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+</div>
+{% endblock %}

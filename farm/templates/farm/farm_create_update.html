@@ -1,0 +1,12 @@
+{% extends 'farm/farm.html' %}
+{% block title %}{% if farm.id %}Update Farm{% else %}Create Farm{% endif %}{% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        <h2 class="mb-4">{% if farm.id %}Update Farm{% else %}Create Farm{% endif %}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">{% if farm.id %}Update{% else %}Create{% endif %}</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'farm/farm.html' %}
+{% block title %}Farm Detail{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Farm Detail</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Farm Code: {{ farm.code }}</h5>
+            <p class="card-text"><strong>Location:</strong> {{ farm.location }}</p>
+            <p class="card-text"><strong>Size (Acres):</strong> {{ farm.size }}</p>
+            <p class="card-text"><strong>Water Source:</strong> {{ farm.water_source }}</p>
+            <p class="card-text"><strong>Soil:</strong> {{ farm.soil }}</p>
+            <p class="card-text"><strong>Slope:</strong> {{ farm.get_slope_display }}</p>
+        </div>
+    </div>
+    <div class="card-footer m-4">
+        <ul class="pagination">
+            {% if previous_farm %}
+                <li class="page-item m-2"><a class="page-link" href="{% url 'farm:farm_detail' previous_farm.id %}" class="btn btn-secondary m-2">Previous Farm</a></li>
+            {% endif %}
+            <li class="page-item"><a href="{% url 'farm:farm_update' farm.id %}" class="btn btn-primary m-2">Update Farm</a></li>
+            <li class="page-item"><a href="{% url 'farm:farm_create' %}" class="btn btn-success m-2">Add Another Farm</a></li>
+            <li class="page-item"><a href="{% url 'farm:farm_list' %}" class="btn btn-info m-2">Back to Farm List</a></li>
+            {% if next_farm %}
+                <li class="page-item m-2"><a class="page-link" href="{% url 'farm:farm_detail' next_farm.id %}" class="btn btn-secondary m-2">Next Farm</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

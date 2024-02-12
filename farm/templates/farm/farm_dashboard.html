@@ -1,0 +1,8 @@
+{% extends 'farm/farm.html' %}
+{%load plotly_dash%}
+{% block title %}Farm Dashboard {% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        {% plotly_app name="FarmDash" ratio=0.4 %}
+    </div>
+{% endblock %}

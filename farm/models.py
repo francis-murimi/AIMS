@@ -97,6 +97,7 @@ class WaterSource(models.Model):
     water_capacity = models.DecimalField(help_text='Meters cubed',decimal_places=2,max_digits=10)
     is_shared = models.BooleanField(default=True)
     is_dry = models.BooleanField(default=False)
+    location = models.ForeignKey(Village,related_name='sources',on_delete=models.SET_NULL,null=True)
     
     class Meta:
         ordering = ('name',)
