@@ -91,27 +91,26 @@ app.layout = html.Div([
 )
 def update_ward_farm_size_chart(chosen_value):
     farm_df = get_farm_df()
-    farm_df = farm_df.groupby('location__ward__name')['size'].sum().reset_index()
 
+    # Group by 'location__ward__name' and calculate the sum of farm sizes
+    ward_farm_size_df = farm_df.groupby('location__ward__name')['size'].sum().reset_index()
 
     if len(chosen_value) == 0:
         return {}
     else:
-        farm_df_filtered = farm_df[farm_df["location__ward__name"].apply(lambda x: x in chosen_value)]
+        # Filter the dataframe to include only selected wards
+        ward_farm_size_df_filtered = ward_farm_size_df[ward_farm_size_df['location__ward__name'].isin(chosen_value)]
 
-        fig = px.bar(
-            data_frame=farm_df_filtered,
-            x="location__ward__name",
-            y="size",
-            color="location__ward__name",
-            log_y=True,
-            labels={
-                "location__ward__name": "Ward",
-                "size": "Size",
-            },
-            hover_data=["size"],
-        )
+        # Create a pie chart to visualize the proportion of farm size for each ward
+        fig = px.pie(ward_farm_size_df_filtered, 
+                     values='size', 
+                     names='location__ward__name', 
+                     title='Proportion of Farm Size in Different Wards',
+                     labels={'size': 'Size', 'location__ward__name': 'Ward'},
+                     hover_data=['size'])
+
         return fig
+
 
 @app.callback(
     dash.dependencies.Output(component_id="ward-farm-size", component_property="options"),
