@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models import F
 from crops.models import CropVariety
+from farm.models import Farm
+from profiles.models import Farmer
 
 class GrowthStage(models.Model):
     crop_variety = models.ForeignKey(CropVariety,related_name='stages', on_delete=models.SET_NULL,null=True)
@@ -61,3 +63,24 @@ class CropJourneyStage(models.Model):
     
     def __str__(self):
         return f'{self.growth_stage.name}-{self.crop_journey.name}'
+
+
+class FarmingJourney(models.Model):
+    farmer = models.ForeignKey(Farmer,related_name='farmers',on_delete=models.DO_NOTHING)
+    farm = models.ForeignKey(Farm,related_name='land',on_delete=models.DO_NOTHING)
+    crop_journey= models.ForeignKey(CropJourney,related_name='farming',on_delete=models.DO_NOTHING)
+    start_date = models.DateField()
+    completed= models.BooleanField(default=True)
+    successful = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        unique_together = ['crop_journey','farmer','farm','start_date']
+        ordering = ['-timestamp']
+        verbose_name = 'Farming Journey'
+        verbose_name_plural = 'Farming Journies'
+    
+    def __str__(self):
+        return f'{self.farmer.last_name}-{self.start_date}'
+    
