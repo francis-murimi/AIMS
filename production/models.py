@@ -70,7 +70,7 @@ class FarmingJourney(models.Model):
     farm = models.ForeignKey(Farm,related_name='land',on_delete=models.DO_NOTHING)
     crop_journey= models.ForeignKey(CropJourney,related_name='farming',on_delete=models.DO_NOTHING)
     start_date = models.DateField()
-    completed= models.BooleanField(default=True)
+    completed= models.BooleanField(default=False)
     successful = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)

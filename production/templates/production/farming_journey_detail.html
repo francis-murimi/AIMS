@@ -1,0 +1,30 @@
+{% extends 'production/production.html' %}
+{% block title %}Journey Detail{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Journey Detail</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Farm Code: {{ farming_journey.farm.code }}</h5>
+            <p class="card-text"><strong>Location:</strong> {{ farming_journey.farm.location }}</p>
+            <p class="card-text"><strong>Size (Acres):</strong> {{ farming_journey.farm.size }}</p>
+            <p class="card-text"><strong>Water Source:</strong> {{ farming_journey.farm.water_source }}</p>
+            <p class="card-text"><strong>Soil:</strong> {{ farming_journey.farm.soil }}</p>
+            <p class="card-text"><strong>Slope:</strong> {{ farming_journey.farm.get_slope_display }}</p>
+        </div>
+    </div>
+    <div class="card-footer m-4">
+        <ul class="pagination">
+            {% if previous_farming_journey %}
+                <li class="page-item m-2"><a class="page-link" href="{% url 'production:farming_journey_detail' previous_farming_journey.id %}" class="btn btn-secondary m-2">Previous Journey</a></li>
+            {% endif %}
+            <li class="page-item"><a href="{% url 'production:farming_journey_update' farming_journey.id %}" class="btn btn-primary m-2">Update Journey</a></li>
+            <li class="page-item"><a href="{% url 'production:farming_journey_create' %}" class="btn btn-success m-2">Add Another Journey</a></li>
+            <li class="page-item"><a href="{% url 'production:farming_journey_list' %}" class="btn btn-info m-2">Back to Journey List</a></li>
+            {% if next_farming_journey %}
+                <li class="page-item m-2"><a class="page-link" href="{% url 'production:farming_journey_detail' next_farming_journey.id %}" class="btn btn-secondary m-2">Next Journey</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

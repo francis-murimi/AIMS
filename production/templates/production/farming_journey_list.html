@@ -1,0 +1,36 @@
+{% extends 'production/production.html' %}
+{% block title %}Farming Journies{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Farming Journies</h2>
+    <div class="row">
+        {% for journey in farming_journies %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ journey.farmer }}</h5>
+                    <p class="card-text"><strong>Location:</strong> {{ journey.farm.location }}</p>
+                    <p class="card-text"><strong>Size (Acres):</strong> {{ journey.farm.size }}</p>
+                    <p class="card-text"><strong>Crop:</strong> {{ journey.crop_journey.crop_variety.crop }}</p>
+                    <a href="{% url 'production:farming_journey_detail' farming_journey_id=journey.id %}" class="btn btn-primary btn-sm">View</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if farming_journies.has_other_pages %}
+        <ul class="pagination">
+            {% if farming_journies.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ farming_journies.previous_page_number }}">Previous</a></li>
+            {% endif %}
+            {% for i in farming_journies.paginator.page_range %}
+                <li class="page-item {% if farming_journies.number == i %}active{% endif %}"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endfor %}
+            {% if farming_journies.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ farming_journies.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+</div>
+{% endblock %}
