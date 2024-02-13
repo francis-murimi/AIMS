@@ -16,6 +16,7 @@
         </div>
         <div class="card-body">
             <h5 class="card-title"> Journey Details </h5>
+            <p class="card-text"><strong>Start Date</strong> {{ farming_journey.start_date }}</p>
             <p class="card-text"><strong>Current Growth Stage</strong> {{ farming_journey.get_current_growth_stage.0 }}</p>
             <p class="card-text"><strong>Progress</strong> {{ farming_journey.get_current_growth_stage.1 }}%</p>
             <p class="card-text"><strong>Dates to Harvest</strong> {{ farming_journey.get_current_growth_stage.2 }}</p>
