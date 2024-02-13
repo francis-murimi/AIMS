@@ -1,5 +1,5 @@
 from django.contrib import admin
-from production.models import CropJourney, CropJourneyStage, GrowthStage
+from production.models import CropJourney, CropJourneyStage, FarmingJourney, GrowthStage
 
 
 @admin.register(GrowthStage)
@@ -20,3 +20,10 @@ class CropJourneyAdmin(admin.ModelAdmin):
 class CropJourneyStageAdmin(admin.ModelAdmin):
     list_display = ('crop_journey',)
     search_fields = ('crop_journey__crop_variety__crop__name','crop_journey__crop_variety__crop__name')
+
+@admin.register(FarmingJourney)
+class FarmingJourneyAdmin(admin.ModelAdmin):
+    list_display = ('farm','farmer','crop_journey','completed','start_date',)
+    list_filter = ('farm__location__ward__name','crop_journey__crop_variety__crop__name','start_date','completed','successful')
+    search_fields = ('farm__location__ward__name','crop_journey__crop_variety__crop__name','farmer__id_number','farmer__phone_number')
+    

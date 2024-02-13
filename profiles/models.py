@@ -11,6 +11,11 @@ class Farmer(models.Model):
     first_name = models.CharField(max_length=15)
     middle_name = models.CharField(max_length=15)
     last_name = models.CharField(max_length=15)
+    id_number = models.CharField(max_length=10,null=True,blank=True,validators=[
+            RegexValidator(
+                regex='^\d+$'
+            )
+        ])
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
     phone_number = models.CharField(max_length=12, validators=[
             RegexValidator(
