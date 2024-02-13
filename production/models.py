@@ -3,6 +3,7 @@ from django.db.models import F
 from crops.models import CropVariety
 from farm.models import Farm
 from profiles.models import Farmer
+from datetime import timedelta, date
 
 class GrowthStage(models.Model):
     crop_variety = models.ForeignKey(CropVariety,related_name='stages', on_delete=models.SET_NULL,null=True)
@@ -46,7 +47,7 @@ class CropJourney(models.Model):
     def journey_duration(self):
         total_duration = 0
         for journey_stage in self.cropjourneystage_set.all():
-            total_duration += journey_stage.growth_stage.stage_duration
+            total_duration += journey_stage.growth_stage.average_duration
         return total_duration
 
 
@@ -83,4 +84,45 @@ class FarmingJourney(models.Model):
     
     def __str__(self):
         return f'{self.farmer.last_name}-{self.start_date}'
+    
+    def get_current_growth_stage(self):
+        start_date = self.start_date
+        current_date = date.today()
+        elapsed_days = (current_date - start_date).days
+
+        # Calculate the total duration of growth stages in the crop journey
+        total_duration = self.crop_journey.journey_duration()
+
+        # Calculate the elapsed time as a percentage of the total duration
+        progress_percentage = (elapsed_days / total_duration) * 100
+
+        # Retrieve the crop journey stages ordered by the stage order
+        crop_journey_stages = self.crop_journey.cropjourneystage_set.order_by('order')
+
+        # Initialize variables to keep track of the current growth stage, remaining days/stages, and passed stages
+        current_stage = None
+        passed_stages = []
+        accumulated_duration = 0
+        remaining_days = 0
+        remaining_stages = 0
+
+        # Iterate over each growth stage to find the current stage
+        for stage in crop_journey_stages:
+            accumulated_duration += stage.growth_stage.average_duration
+            if accumulated_duration >= progress_percentage:
+                current_stage = stage.growth_stage
+                remaining_days = total_duration - elapsed_days
+                remaining_stages = crop_journey_stages.filter(order__gt=stage.order).count()
+                break
+            else:
+                passed_stages.append(stage.growth_stage)
+        passed_stages=len(passed_stages)
+        return current_stage, progress_percentage, remaining_days, passed_stages, remaining_stages
+
+
+    
+    
+
+
+
     

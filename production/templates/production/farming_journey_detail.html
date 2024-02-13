@@ -5,13 +5,24 @@
     <h2 class="mb-4">Journey Detail</h2>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Farm Code: {{ farming_journey.farm.code }}</h5>
+            <h5 class="card-title">Farm Details </h5>
+            <p class="card-text"><strong>Farm Code:</strong> {{ farming_journey.farm.code }}</p>
             <p class="card-text"><strong>Location:</strong> {{ farming_journey.farm.location }}</p>
             <p class="card-text"><strong>Size (Acres):</strong> {{ farming_journey.farm.size }}</p>
             <p class="card-text"><strong>Water Source:</strong> {{ farming_journey.farm.water_source }}</p>
             <p class="card-text"><strong>Soil:</strong> {{ farming_journey.farm.soil }}</p>
             <p class="card-text"><strong>Slope:</strong> {{ farming_journey.farm.get_slope_display }}</p>
+            
         </div>
+        <div class="card-body">
+            <h5 class="card-title"> Journey Details </h5>
+            <p class="card-text"><strong>Current Growth Stage</strong> {{ farming_journey.get_current_growth_stage.0 }}</p>
+            <p class="card-text"><strong>Progress</strong> {{ farming_journey.get_current_growth_stage.1 }}%</p>
+            <p class="card-text"><strong>Dates to Harvest</strong> {{ farming_journey.get_current_growth_stage.2 }}</p>
+            <p class="card-text"><strong>Passed Stages</strong> {{ farming_journey.get_current_growth_stage.3 }}</p>
+            <p class="card-text"><strong>Remaining Stages</strong> {{ farming_journey.get_current_growth_stage.4 }}</p>
+        </div>
+        
     </div>
     <div class="card-footer m-4">
         <ul class="pagination">
